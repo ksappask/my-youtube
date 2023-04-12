@@ -6,8 +6,8 @@ const itemList = ["All", "Gaming", "Songs", "Trending", "Sports"];
 const ButtonList = () => {
   return (
     <div className="flex">
-      {itemList.map((e) => {
-        return <Button name={e} />;
+      {itemList.map((e, index) => {
+        return <Button key={index} name={e} />;
       })}
     </div>
   );
