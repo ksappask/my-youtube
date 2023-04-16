@@ -3,14 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
 import { cacheResults } from "../utils/searchSlice";
+import { Link } from "react-router-dom";
 
 const Head = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestons] = useState(false);
+  const [searchText, setSearchText] = useState("");
 
   const searchCache = useSelector((store) => store.search);
   const dispatch = useDispatch();
+
   // This UseEffect called whenever searchQuery changes
   useEffect(() => {
     // Make this API Call after 200ms
@@ -76,9 +79,11 @@ const Head = () => {
             onFocus={() => setShowSuggestons(true)}
             onBlur={() => setShowSuggestons(false)}
           />
-          <button className=" px-5 py-2  border bg-neutral-200 border-gray-400  rounded-r-full">
-            Search
-          </button>
+          <Link to={"/search?v=" + searchQuery}>
+            <button className=" px-5 py-2  border bg-neutral-200 border-gray-400  rounded-r-full">
+              Search
+            </button>
+          </Link>
         </div>
         {showSuggestions && (
           <div className=" fixed bg-white py-2 px-5 w-[38rem] shadow-lg rounded-lg border-gray-100">
