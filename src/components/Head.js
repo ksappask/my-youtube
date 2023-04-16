@@ -4,12 +4,12 @@ import { toggleMenu } from "../utils/appSlice";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
 import { cacheResults } from "../utils/searchSlice";
 import { Link } from "react-router-dom";
+import Button from "./Button";
 
 const Head = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestons] = useState(false);
-  const [searchText, setSearchText] = useState("");
 
   const searchCache = useSelector((store) => store.search);
   const dispatch = useDispatch();
@@ -77,7 +77,6 @@ const Head = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={() => setShowSuggestons(true)}
-            onBlur={() => setShowSuggestons(false)}
           />
           <Link to={"/search?v=" + searchQuery}>
             <button className=" px-5 py-2  border bg-neutral-200 border-gray-400  rounded-r-full">
@@ -85,13 +84,22 @@ const Head = () => {
             </button>
           </Link>
         </div>
-        {showSuggestions && (
+        {showSuggestions && searchQuery.length > 0 && (
           <div className=" fixed bg-white py-2 px-5 w-[38rem] shadow-lg rounded-lg border-gray-100">
             <ul>
               {suggestions.map((s) => (
-                <li key={s} className="hover:bg-gray-100">
-                  {s}
-                </li>
+                <Link key={s} to={"/search?v=" + s}>
+                  <li
+                    key={s}
+                    className="hover:bg-gray-100 "
+                    onClick={() => {
+                      setShowSuggestons(false);
+                      setSearchQuery(s);
+                    }}
+                  >
+                    {s}
+                  </li>
+                </Link>
               ))}
             </ul>
           </div>
