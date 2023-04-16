@@ -9,6 +9,7 @@ import WatchPage from "./components/WatchPage";
 import Demo from "./components/Demo";
 import Demo2 from "./components/Demo2";
 import Search from "./components/Search";
+import { Helmet } from "react-helmet";
 
 const appRouter = createBrowserRouter([
   {
@@ -43,8 +44,9 @@ function App() {
   return (
     <Provider store={store}>
       <>
-        <title>My Youtube</title>
-
+        <Helmet>
+          <title>My Youtube</title>
+        </Helmet>
         <RouterProvider router={appRouter}></RouterProvider>
       </>
     </Provider>
